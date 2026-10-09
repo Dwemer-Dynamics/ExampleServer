@@ -5,8 +5,11 @@ Start from copies of [ExampleServer](https://github.com/Dwemer-Dynamics/ExampleS
 your own branches (for example `main` and `dev`). Run [SETUP.md](SETUP.md) first
 (orientation is in [START_HERE.md](START_HERE.md)). Keep private settings out of Git.
 Then use this map for your own project. Your copies are independent of CHIM, Stobe and
-Dialectic; to keep taking template changes, keep the template as a Git remote and merge by
-hand.
+Dialectic. A copy made with GitHub's **Use this template** has its own, unrelated Git
+history: to take later template changes, compare them with your project and copy or adapt
+the ones you want by hand. A clone that keeps the template's history can instead keep the
+template as an extra remote and merge reviewed updates on a working branch.
+`scripts/update.sh` is separate: it updates an installed copy of your own project.
 
 | Change | Edit |
 |---|---|

@@ -137,8 +137,8 @@ below). "Working" never means tested in a real game or with a real provider.
 | Actions | `follow_player` only. `wave` is an exercise, not enabled | `follow_player` | [WAVE_ACTION](WAVE_ACTION.md) |
 | Client result reports (`result.php`) | Working; untrusted client claims | on in the client | [PROTOCOL](PROTOCOL.md#optional-post-resultphp) |
 | NPC selection (`decision.php`, mock or OpenRouter JEV) | Mock working; JEV needs a key, not covered by smoke checks | off | [CONNECTORS](CONNECTORS.md#npc-selection-decision-optional) |
-| Text to speech: PocketTTS (audio.cpp, 8086) or OpenAI-compatible WAV | Code path present; opt-in; services installed separately; real audio not verified by these docs | off | [CONNECTORS](CONNECTORS.md#voice) |
-| Speech to text: Parakeet (8022, default) or faster-whisper (9876) | As above | off | [CONNECTORS](CONNECTORS.md#voice) |
+| Text to speech: PocketTTS (audio.cpp, 8086, recommended start) or OpenAI-compatible WAV | Code path present; opt-in; services installed separately; real audio not verified by these docs | off | [CONNECTORS](CONNECTORS.md#voice) |
+| Speech to text: Parakeet (8022, default, recommended start) or faster-whisper (9876) | As above | off | [CONNECTORS](CONNECTORS.md#voice) |
 | Dashboard working pages | Working: Home, Conversation, History, Checkpoints, Memory, Server settings, API keys, LLM, Voice, NPC selection, Memory settings, NPC bios, Profiles, Logs, Connector calls, Diagnostics, Backups | no login | [UI_GUIDE](UI_GUIDE.md#what-the-dashboard-does) |
 | Dashboard samples | **Preview only, save nothing:** `ui/examples/` blank, form and table | | [UI_GUIDE](UI_GUIDE.md#working-tools-and-previews) |
 | Versions, migrations, upgrade refusal | Working | `0.1.0`, `baseline-1`, protocol 1, `007_connector_calls` | [SETUP 6](SETUP.md#6-back-up-and-update) |
@@ -337,8 +337,10 @@ are never retried automatically. Server check: `SMOKE_STALE=1 bash scripts/smoke
 ### 11. Voice (optional)
 
 Voice is opt-in, and the voice services are installed and started separately. The
-templates never install or start them. Start PocketTTS (audio.cpp, port 8086) and/or
-Parakeet (port 8022) from the DwemerDistro launcher. Enable `tts`/`stt` on the dashboard
+templates never install or start them. Start with PocketTTS (audio.cpp, port 8086) for
+text-to-speech and Parakeet (port 8022) for speech-to-text, the recommended DwemerDistro
+starting choices; existing setups often have them already. Check each in the DwemerDistro
+launcher, install it there if missing, and start it before enabling or testing. Enable `tts`/`stt` on the dashboard
 **Voice** page or in `config/config.php`, and set `"voice_enabled": true` in the client.
 faster-whisper (port 9876) remains supported: choose it on the Voice page or use its
 [CONNECTORS](CONNECTORS.md#voice) block. An `stt` section without `provider` is treated as
@@ -521,8 +523,12 @@ config, fast-forwards only, then migrates; it never resets, cleans or deletes an
 ([SETUP.md section 6](SETUP.md#6-back-up-and-update)). A manual install follows the branch
 it was cloned from (`main` by default; clone with `-b dev` for development).
 
-Your project is your own copy. Give it its own repository; to keep taking template
-changes, add this template as an extra remote and merge by hand on your own branch.
+Your project is your own copy. Give it its own repository. `update.sh` above only updates
+an installed copy from the branch it tracks; it does not merge template changes into your
+project. If you made your repository with GitHub's **Use this template**, its Git history is unrelated
+to the template's: compare later template changes and copy or adapt the ones you want by
+hand. If your repository is a clone that keeps the template's history, you can instead keep
+the template as an extra remote and merge reviewed updates on a working branch.
 
 Files to keep private and out of commits and packages: `config/config.php`,
 `config/config.php.lock`, `config/.config-*.php`, the client `config.json`,
