@@ -16,7 +16,8 @@ Windows console "fake game" that shows the game side. Neither is a plugin for a 
 - Per-session conversation history, NPC bios and knowledge facts, session checkpoints,
   backups and an event log you can search by request ID.
 - Game events (log only, or the NPC reacts), cancellation and stale-reply protection.
-- Optional, off by default: voice (PocketTTS, Parakeet or faster-whisper), NPC selection
+- Optional, off by default: voice (start with PocketTTS for text-to-speech and Parakeet for
+  speech-to-text; faster-whisper and OpenAI-compatible WAV speech are alternatives), NPC selection
   (`decision.php`), profiles, advanced memory and vector search over facts.
 - A dashboard with working configuration, roleplay test and control panel pages.
 - Installs manually or from the DwemerDistro launcher's **Custom mods** view, with `main`

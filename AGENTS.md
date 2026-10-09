@@ -51,6 +51,11 @@ Guidance for coding agents working on this example server, or on a project copie
 - **Config and secrets**: settings live in untracked `config/config.php`. Add new settings
   to `config/config.example.php` with a safe default. Optional features (LLM key, TTS, STT)
   must fail cleanly with a clear error and never pretend to succeed.
+- **Voice**: optional, off by default; text and mock come first. If the user wants voice,
+  start with PocketTTS for TTS and Parakeet for STT (the recommended DwemerDistro choices)
+  before the supported alternatives. Do not assume either is installed or running: within
+  the scope the user has authorized, verify the service is available and running before
+  enabling or testing voice, then confirm with the dashboard Voice page test.
 - **Installers**: `install.sh` must stay safe to repeat, copy config only when missing,
   and change nothing outside this app's folder and database. `update.sh` must keep
   refusing dirty checkouts, back up first, and only fast-forward. Never add

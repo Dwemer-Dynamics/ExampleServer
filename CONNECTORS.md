@@ -46,7 +46,9 @@ same way in every mode.
 
 ## Voice
 
-Text always comes first. Only these providers are wired in:
+Text always comes first. Start with PocketTTS for text-to-speech (TTS) and Parakeet for
+speech-to-text (STT), the recommended DwemerDistro starting choices; the `openai` TTS and
+`fasterwhisper` STT blocks are supported alternatives. Only these providers are wired in:
 
 ```php
 'tts' => ['enabled' => true, 'provider' => 'pockettts',
@@ -79,7 +81,8 @@ answer JSON `{"text": "..."}`. STT text must be 1-1000 characters of UTF-8, othe
 player is asked to type. Configs without `provider` keep using PocketTTS and faster-whisper.
 
 Voice is opt-in: the sample config ships with PocketTTS and Parakeet selected but
-`enabled => false`. Start the service from the DwemerDistro launcher, then enable it here or
+`enabled => false`. Check in the DwemerDistro launcher that the service is available
+(install it there if missing) and start it, then enable it here or
 on the dashboard Voice page. Changing the STT provider there swaps an unchanged default URL
 and drops the other provider's field (`model` or `form_field`); other saved settings stay.
 

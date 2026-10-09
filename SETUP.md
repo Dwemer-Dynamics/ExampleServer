@@ -29,7 +29,7 @@ and troubleshooting by request ID, start with [START_HERE.md](START_HERE.md).
 | Windows | DwemerDistro installed and started (it provides WSL, Apache with the shared custom mods port 19000, PostgreSQL, PHP 8.2). |
 | Windows | Visual Studio 2022 with "Desktop development with C++" (MSVC, CMake). |
 | Optional | An OpenAI-compatible LLM endpoint (cloud or local). Not needed for the mock. |
-| Optional | DwemerDistro PocketTTS (audio.cpp, port 8086) and Parakeet (port 8022) or faster-whisper (port 9876) for voice. |
+| Optional | For voice, start with DwemerDistro PocketTTS (text-to-speech, audio.cpp, port 8086) and Parakeet (speech-to-text, port 8022); faster-whisper (port 9876) is an alternative. |
 
 | Repository | URL |
 |---|---|
@@ -298,7 +298,10 @@ Changes apply on the next request; no restart needed. If the model fails, the ga
 
 Voice is off by default and is never needed for text. To try it:
 
-1. Start PocketTTS (audio.cpp) and/or Parakeet from the DwemerDistro launcher.
+1. Start with PocketTTS (audio.cpp) for text-to-speech (TTS) and Parakeet for
+   speech-to-text (STT). They are the recommended DwemerDistro starting choices and are
+   often already available in existing setups. In the DwemerDistro launcher, check that
+   each one you want is there, install it if it is missing, and start it.
 2. In `config/config.php` (or on the dashboard Voice page) set
    `'tts' => ['enabled' => true, ...]` and/or `'stt' => ['enabled' => true, ...]`. The
    default URLs are `http://127.0.0.1:8086/v1/audio/speech` and
