@@ -21,8 +21,14 @@ What the distro does with this manifest:
   replacing `'CHANGE_ME_TOKEN'` with a random token and `'example_ai_mod'` with
   `custom_example_server`. Nothing else in the template changes.
 - Runs `php scripts/migrate.php` as `dwemer`, then requires
-  `http://127.0.0.1:8081/custom-mods/example-server/health.php` to answer 200.
-- Dashboard: `http://127.0.0.1:8081/custom-mods/example-server/ui/`.
+  `http://127.0.0.1:19000/custom-mods/example-server/health.php` to answer 200.
+- Dashboard: `http://127.0.0.1:19000/custom-mods/example-server/ui/`.
+- Client `server_url`: `http://127.0.0.1:19000/custom-mods/example-server`.
+
+19000 is the distro's shared loopback port for all custom mods (`CUSTOM_MODS_PORT` in
+`/etc/dwemerdistro_services.conf`, 19000-19999); each mod has its own path and database,
+and official server ports are unchanged. If it is changed, run
+`sudo ddistro_custom_mod setup-web` and update the client's `server_url` to the new port.
 
 It never runs `scripts/install.sh` or `scripts/update.sh`, and never runs repository PHP as
 root. **Update** refuses local edits to tracked files, backs up `config/config.php` and the

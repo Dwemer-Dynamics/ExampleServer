@@ -34,12 +34,18 @@ Windows console "fake game" that shows the game side. Neither is a plugin for a 
 git clone https://github.com/Dwemer-Dynamics/ExampleServer.git /var/www/html/ExampleServer
 cd /var/www/html/ExampleServer
 sudo bash scripts/install.sh
-curl http://127.0.0.1:8081/ExampleServer/health.php
+sudo ddistro_custom_mod setup-web   # serves it on the shared custom mods port
+curl http://127.0.0.1:19000/ExampleServer/health.php
 bash scripts/smoke.sh
 ```
 
-Then open the dashboard at `http://127.0.0.1:8081/ExampleServer/`. To build and pair the
+Then open the dashboard at `http://127.0.0.1:19000/ExampleServer/`. To build and pair the
 client, follow [SETUP.md](SETUP.md); it covers both repositories.
+
+19000 is DwemerDistro's shared loopback port for all custom PHP mods (`CUSTOM_MODS_PORT`,
+19000-19999); each mod has its own path and database, and official server ports such as
+8081 are unchanged. If you change it, run `sudo ddistro_custom_mod setup-web` again and
+update the client's `server_url`.
 
 ## Documentation
 
