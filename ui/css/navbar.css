@@ -1,0 +1,317 @@
+/* Presentation excerpts from HerikaServer; see HERIKA-LICENSE and UI_GUIDE.md. */
+/* Navbar Styles */
+/* Define the scrolling animation */
+@keyframes scrollBackground {
+    from {
+        background-position-x: 0;
+    }
+    to {
+        background-position-x: -7680px;
+    }
+}
+
+/* Disable animation when auto-refresh is enabled */
+body.auto-refresh .chim-navbar-wrapper,
+body.auto-refresh .chim-status-nav {
+    animation: none !important;
+}
+
+.chim-navbar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    background: url('../images/navbarback.png');
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    font-family: 'Times New Roman', Times, serif;
+    animation: scrollBackground 240s linear infinite;
+}
+
+.chim-navbar {
+    background: transparent !important;
+    padding: 10px 0;
+}
+
+.chim-status-nav {
+    background: url('../images/navbarback.png');
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    width: 100%;
+    padding: 10px 0;
+    animation: scrollBackground 240s linear infinite;
+}
+
+.chim-status-container {
+    padding: 0 15px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 30px;
+    text-transform: uppercase;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* The generated flat icon has no hover effects. */
+.chim-navbar-wrapper .chim-navbar .navbar-brand,
+.chim-navbar-wrapper .chim-navbar .navbar-brand:hover,
+.chim-navbar-wrapper .chim-navbar .navbar-brand:active {
+    filter: none !important;
+    transform: none !important;
+}
+
+/* Main Navbar Items */
+.nav-item.dropdown.mx-2 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    color: #ffffffda;
+    margin: 0 4px;
+}
+
+.nav-item.dropdown.mx-2 > .nav-link {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 22px;
+    color: #ffffffda;
+    padding: 4px 8px;
+    word-spacing: 4px;
+}
+
+/* Dropdown Menu Styles */
+.nav-item.dropdown.mx-2 .dropdown-menu {
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 0.5px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 8px 0;
+    min-width: 220px;
+}
+
+.nav-item.dropdown.mx-2 .dropdown-item {
+    padding: 8px 16px;
+    margin: 2px 0;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    line-height: 1.4;
+    white-space: nowrap;
+    position: relative;
+}
+
+.dropdown-menu {
+    padding: 8px 0;
+    margin: 0;
+    border-radius: 6px;
+}
+
+/* Brand dropdown under logo */
+.brand-menu {
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 1.2px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 8px 0;
+    min-width: 260px;
+}
+.brand-menu .dropdown-item {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 10px 16px;
+    color: #ffffff;
+    letter-spacing: 1.6px;
+    word-spacing: 6px;
+    line-height: 1.25;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.brand-menu,
+.brand-menu * {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-weight: 700 !important;
+}
+.chim-navbar-wrapper .brand-menu .dropdown-item,
+.dropdown-menu.brand-menu .dropdown-item {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-weight: 700 !important;
+}
+.brand-menu .dropdown-item:hover {
+    background-color: rgba(2, 42, 106, 0.85);
+}
+
+/* Center the brand menu under the logo at all widths */
+.navbar-center.dropdown {
+    position: relative;
+}
+.navbar-center .brand-menu {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+
+.dropdown-header {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    color: #ffc107;
+    text-transform: uppercase;
+    padding: 12px 12px 4px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.dropdown-item {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    padding: 8px 16px;
+    margin: 2px 0;
+    color: #ffffff;
+}
+
+.dropdown-item:hover {
+    background-color: #2c5282;
+    color: #ffffff;
+}
+
+.dropdown-divider {
+    margin: 8px 0;
+    border-top: 1px solid #333;
+    opacity: 0.5;
+}
+
+
+.chim-navbar .container-fluid {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Fixed navbar height */
+.chim-navbar {
+    height: 64px;
+}
+.chim-navbar .container-fluid > * {
+    align-items: center;
+}
+.chim-navbar .navbar-brand,
+.chim-navbar .navbar-center button.navbar-brand {
+    padding: 0;
+    line-height: 1;
+}
+
+/* Hide inline nav links to keep single-line navbar */
+.navbar-left,
+.navbar-right,
+.chim-navbar .nav-item.mx-2,
+.chim-navbar .nav-item.dropdown.mx-2 {
+    display: none !important;
+}
+
+.server-version-info {
+    display: flex;
+    align-items: center;
+    color: #6c757d;
+    font-size: 0.75em;
+    font-family: Arial, sans-serif;
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.navbar-content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 120px;
+    flex-shrink: 0;
+    justify-content: flex-end;
+}
+
+.social-link img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover img {
+    transform: scale(1.1);
+}
+
+.navbar-left {
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    margin: 0 15px 0 0 !important;
+}
+
+.navbar-center {
+    display: flex;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin: 0 20px;
+}
+
+.navbar-right {
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    margin: 0 0 0 15px !important;
+}
+
+.navbar-center .navbar-brand {
+    margin: 0;
+    padding: 0;
+}
+
+/* Dropdown positioning */
+.nav-item.dropdown .dropdown-menu {
+    min-width: 280px;
+}
+
+@media (max-width: 992px) {
+    .container-fluid {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .server-version-info,
+    .social-links {
+        order: 2;
+        width: auto;
+    }
+
+    .navbar-content-wrapper {
+        flex-direction: column;
+        gap: 10px;
+        order: 1;
+    }
+
+    .navbar-left,
+    .navbar-right {
+        justify-content: center;
+        flex: none;
+        margin: 0 !important;
+    }
+
+    .navbar-center {
+        order: -1;
+        margin: 0;
+    }
+
+    /* Center dropdowns on mobile */
+    .dropdown-menu {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

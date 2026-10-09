@@ -1,0 +1,172 @@
+/* Grouped section navigation adapted from HerikaServer; see HERIKA-LICENSE. */
+.config-navigation {
+    margin: 6px 0;
+    padding: 5px;
+    border: 1px solid var(--chim-border, #404040);
+    border-radius: 10px;
+    background: var(--chim-surface-3, #1d1d1d);
+    box-shadow: none;
+}
+
+.config-navigation .tab-groups {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 5px;
+    align-items: flex-start;
+}
+
+.config-navigation .tab-group {
+    flex: 0 1 max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    padding: 4px 6px;
+    overflow: visible;
+    border: 1px solid var(--chim-border, #404040);
+    border-radius: 8px;
+    background: var(--chim-surface-1, #232323);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.config-navigation .tab-group.active {
+    border-color: rgba(77, 163, 255, 0.62);
+    box-shadow: inset 0 0 0 1px rgba(77, 163, 255, 0.08);
+}
+
+.config-navigation .tab-group-label {
+    padding: 0 0 3px;
+    border-bottom: 1px solid rgba(77, 163, 255, 0.22);
+    color: #8ec5ff;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 0.68em;
+    letter-spacing: 0.9px;
+    line-height: 1.2;
+    word-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.config-navigation .tab-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 4px;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body .config-navigation .tab-button {
+    box-sizing: border-box;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    height: 32px !important;
+    min-height: 32px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start !important;
+    gap: 6px;
+    margin: 0 !important;
+    padding: 4px 8px !important;
+    overflow: hidden;
+    border: 1px solid #4a4a4a;
+    border-radius: 6px;
+    background: #303030;
+    color: #f0f0f0;
+    cursor: pointer;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 0.82em !important;
+    font-weight: normal !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.6px;
+    text-decoration: none;
+    word-spacing: 1px;
+    white-space: nowrap;
+    box-shadow: none;
+    transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+}
+
+.config-navigation .tab-button:hover {
+    border-color: rgba(77, 163, 255, 0.45);
+    background: #2f3843;
+    color: rgb(77, 163, 255);
+    text-decoration: none;
+    box-shadow: none;
+}
+
+.config-navigation .tab-button.active {
+    border-color: rgba(77, 163, 255, 0.75);
+    background: #23364b;
+    color: rgb(77, 163, 255);
+    text-decoration: none;
+    box-shadow: inset 0 -2px rgba(77, 163, 255, 0.65);
+}
+
+.config-navigation .tab-button:focus,
+.config-navigation .tab-button:visited {
+    text-decoration: none;
+}
+
+.config-navigation .tab-button:focus-visible {
+    outline: 2px solid rgb(77, 163, 255);
+    outline-offset: 2px;
+}
+
+@media (min-width: 1800px) {
+    .config-navigation .tab-group {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .config-navigation .tab-group-label {
+        flex: 0 0 auto;
+        padding: 0 8px 0 0;
+        border-bottom: 0;
+        border-right: 1px solid rgba(77, 163, 255, 0.22);
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 1200px) {
+    body .config-navigation .tab-button {
+        padding: 4px 7px !important;
+        font-size: 0.78em !important;
+        letter-spacing: 0.4px;
+    }
+}
+
+@media (max-width: 900px) {
+    .config-navigation .tab-groups {
+        flex-wrap: wrap;
+    }
+
+     .config-navigation .tab-groups .tab-group {
+        flex: 1 1 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+        padding: 5px 8px;
+    }
+
+    .config-navigation .tab-group-label {
+        flex: 0 0 auto;
+        padding: 0 0 5px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(77, 163, 255, 0.22);
+        font-size: 0.72em;
+        white-space: normal;
+    }
+
+    body .config-navigation .tab-button {
+        flex: 1 1 auto;
+        height: 38px !important;
+        min-height: 38px !important;
+        justify-content: center !important;
+        font-size: 0.82em !important;
+    }
+}

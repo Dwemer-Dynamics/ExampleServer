@@ -1,0 +1,5 @@
+# Local secrets and settings. Created by scripts/install.sh.
+config/config.php
+# Web settings saves: permanent lock file and transient secret temp files.
+config/config.php.lock
+config/.config-*.php

@@ -1,0 +1,100 @@
+/* Example page layout only. Presentation lives in the HerikaServer CSS excerpts. */
+* { box-sizing: border-box; }
+body { margin: 0; padding-top: 80px; line-height: 1.5; }
+main { padding-bottom: 40px; }
+/* HerikaServer/ui/home.php uses Bootstrap's .container; retain its exact gutters/breakpoints. */
+.container { --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; width: 100%; padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5); margin-right: auto; margin-left: auto; }
+@media (min-width: 576px) { .container { max-width: 540px; } }
+@media (min-width: 768px) { .container { max-width: 720px; } }
+@media (min-width: 992px) { .container { max-width: 960px; } }
+@media (min-width: 1200px) { .container { max-width: 1140px; } }
+@media (min-width: 1400px) { .container { max-width: 1320px; } }
+h2 { margin: 0 0 10px; font-size: 19px; }
+p { margin: 0 0 16px; }
+.chim-panel { margin-bottom: 16px; }
+.narrow { max-width: 560px; }
+label { display: block; margin-bottom: 6px; }
+input:not([type="hidden"]), textarea, select { margin-bottom: 16px; }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.links { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.help { margin-top: 16px; font-size: 13px; }
+.notice { padding: 12px; border-left: 3px solid var(--chim-accent); background: var(--chim-surface-2); }
+.reply { color: var(--chim-text); white-space: pre-wrap; overflow-wrap: anywhere; }
+dl { display: grid; grid-template-columns: minmax(150px, 1fr) 2fr; gap: 12px; margin: 0; }
+dd { margin: 0; overflow-wrap: anywhere; }
+dt { color: var(--chim-text-muted); }
+.table-wrap { overflow-x: auto; }
+th, td { text-align: left; }
+.skip { position: fixed; z-index: 1040; left: 16px; top: -100px; padding: 8px; background: var(--chim-surface-1); }
+.skip:focus { top: 8px; }
+
+/* Minimal Bootstrap layout/disclosure primitives used by the original navbar markup. */
+.chim-navbar .container-fluid { padding: 0 12px; height: 100%; }
+.navbar-center .navbar-brand { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.navbar-brand span { font-family: "Times New Roman", Times, serif; font-weight: normal; font-size: 24px; line-height: 42px; }
+.dropdown-toggle::after { content: ''; border-top: 5px solid; border-right: 5px solid transparent; border-left: 5px solid transparent; margin-left: 4px; }
+.dropdown-menu { display: none; position: absolute; top: 100%; z-index: 1031; list-style: none; width: 260px; max-width: calc(100vw - 24px); }
+.dropdown-menu.show { display: block; }
+.dropdown-item { display: block; text-decoration: none; }
+body .chim-navbar-wrapper .brand-menu button.dropdown-item { width: 100%; justify-content: flex-start; margin: 0 !important; padding: 6px 10px !important; border: 0 !important; background: transparent !important; font-size: 18px !important; text-align: left; line-height: 1.25; }
+body .chim-navbar-wrapper .brand-menu button.dropdown-item:hover,
+body .chim-navbar-wrapper .brand-menu button.dropdown-item:focus { background: #2a3542 !important; color: var(--chim-accent-bright) !important; }
+@media (max-width: 640px) { .fields, dl { grid-template-columns: 1fr; } dl { gap: 6px; } dd { margin-bottom: 10px; } }
+@media (prefers-reduced-motion: reduce) { .chim-navbar-wrapper { animation: none; } .navbar-brand img { transition: none; } }
+/* Baseline typography: ordinary body text, Times headings and navigation. */
+h1, h2, h3, h4, h5, h6, .Title, .chim-navbar, .config-navigation { font-family: "Times New Roman", Times, serif; }
+h3 { margin: 0 0 8px; font-size: 16px; }
+.sample-card { margin-bottom: 16px; }
+.sample-card:last-child { margin-bottom: 0; }
+/* Herika core_profiles split editor and home.php widget layout, with blue accents. */
+body.hub-page { padding-top: 66px; }
+.hub-container { width: 100%; padding: 0 10px 40px; margin: 0 auto; }
+.dashboard-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px 0; }
+.widget { background: #2d2d2d; border: 1px solid var(--chim-border); border-radius: 8px; overflow: hidden; }
+.widget-header { background: #1a1a1a; padding: 15px; border-bottom: 1px solid #3a3a3a; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.widget-header h2 { margin: 0; font-size: 1.2em; }
+.widget-content { padding: 15px; }
+.status-label { display: block; color: var(--chim-accent-bright); margin-bottom: 8px; }
+.llm-layout { display: grid; grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+.llm-left, .connector-card { border: 1px solid #3a3a3a; border-radius: 8px; background: linear-gradient(180deg, #2a2a2a, #222); padding: 16px; }
+.llm-left { padding: 12px; }
+.llm-right { min-width: 0; }
+.sample-list { display: grid; gap: 8px; }
+body button.sample-choice { width: 100%; text-align: left; white-space: normal; background: #202020 !important; border: 1px solid #3a3a3a !important; padding: 10px !important; margin: 0 !important; }
+.sample-choice strong, .sample-choice small { display: block; }
+.sample-choice small { color: var(--chim-text-muted); font-weight: normal; margin-top: 4px; }
+body button.sample-choice.selected { border-color: var(--chim-accent) !important; box-shadow: inset 3px 0 var(--chim-accent); background: #243345 !important; }
+.setting-row { display: grid; grid-template-columns: minmax(160px, 1fr) minmax(280px, 2fr); gap: 10px 14px; align-items: start; padding: 10px 0; border-top: 1px solid rgba(255,255,255,.05); }
+.setting-row input, .setting-row textarea { margin: 0; }
+.preview-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
+.preview-actions span { color: var(--chim-text-muted); font-size: 13px; }
+.preview-output { margin-top: 16px; border-top: 1px solid var(--chim-border); padding-top: 12px; }
+.filter-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; margin-bottom: 12px; }
+.filter-toolbar > div { flex: 1 1 200px; }
+.filter-toolbar input, .filter-toolbar select, .filter-toolbar button { margin: 0 !important; }
+.filter-toolbar .help { margin: 0; padding-bottom: 8px; }
+.dense-table th, .dense-table td { padding: 8px 10px !important; font-size: 13px; vertical-align: top; }
+.dense-table td:first-child { white-space: nowrap; }
+.log-output { background: #171717; border: 1px solid #3a3a3a; padding: 12px; font: 13px/1.6 Consolas, monospace; overflow-wrap: anywhere; }
+.log-line { display: grid; grid-template-columns: 55px 75px minmax(0, 1fr); gap: 10px; padding: 5px 0; border-bottom: 1px solid #303030; }
+.log-level { color: var(--chim-accent-bright); }
+[hidden] { display: none !important; }
+@media (max-width: 1100px) { .llm-layout { grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); } .setting-row { grid-template-columns: 1fr; } }
+@media (max-width: 700px) { .llm-layout { grid-template-columns: 1fr; } .dashboard-container { grid-template-columns: 1fr; } .log-line { grid-template-columns: 45px 65px minmax(0, 1fr); gap: 6px; } }
+/* Working settings pages: API key cards adapted from HerikaServer ui/core/api_badge.php, blue accents. */
+.section-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.section-header h2 { margin: 0; }
+.provider-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.provider-card { background: #202020; border: 1px solid #3a3a3a; border-radius: 8px; padding: 14px; }
+.provider-card.has-key { border-color: var(--chim-success-dark); box-shadow: inset 0 0 0 1px rgba(66, 163, 109, .35); }
+.provider-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.provider-title { margin: 0; font-size: 16px; }
+.provider-card input[type="password"] { width: 100%; margin-bottom: 8px; }
+.provider-subtext { margin: 8px 0 0; color: var(--chim-text-muted); font-size: 12px; }
+.inline-check { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.chim-badge-danger { border-color: rgba(198, 83, 83, .5); background: rgba(198, 83, 83, .12); color: #f09a9a; }
+.voice-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.voice-layout audio { width: 100%; margin-top: 8px; }
+.confirm-panel { border-left: 3px solid var(--chim-danger); }
+fieldset label { display: flex; align-items: center; gap: 6px; }
+@media (max-width: 1100px) { .provider-grid, .voice-layout { grid-template-columns: 1fr; } }
