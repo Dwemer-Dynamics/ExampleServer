@@ -7,8 +7,8 @@ and shows how to add pages. To add one, start with the blank, form or table page
 
 ## What the dashboard does
 
-Open `http://127.0.0.1:8081/ExampleServer/` directly (a launcher install uses
-`http://127.0.0.1:8081/custom-mods/example-server/ui/`). This baseline dashboard has no
+Open `http://127.0.0.1:19000/ExampleServer/` directly (a launcher install uses
+`http://127.0.0.1:19000/custom-mods/example-server/ui/`). This baseline dashboard has no
 login. Use localhost or a trusted network. There is no rate limiting.
 
 - **Configuration**: Server settings (history length, known actions), LLM, Voice, NPC

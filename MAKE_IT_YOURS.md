@@ -11,7 +11,7 @@ hand.
 | Change | Edit |
 |---|---|
 | Project/build name | ExampleMod/CMakeLists.txt (`project`, every `example_mod` target reference including POST_BUILD/TARGET_FILE_DIR), scripts/build.ps1 output message and README commands |
-| Server folder/route | Clone into `/var/www/html/YourServer`; set the client's private `server_url` to that route |
+| Server folder/route | Clone into `/var/www/html/custom-mods/your-id` (a hyphenated id; the shared port serves only `/ExampleServer` and `/custom-mods/<id>`); set the client's private `server_url` to that route |
 | Database | Server `config/config.php`: set `database.name` to a new lowercase identifier; `install.sh` creates it |
 | Launcher manifest | Server `dwemer-mod.json`: your own unique `id`, `name`, `description`, `project_url`, `branches` and database placeholder; see [LAUNCHER_CUSTOM_MOD.md](LAUNCHER_CUSTOM_MOD.md#making-your-own-launcher-mod-from-this-template) |
 | Navbar branding | Server `ui/tmpl/navbar.php`: title; `ui/images/question-mark.png`: icon; retain upstream license |
@@ -26,9 +26,9 @@ hand.
 | Private endpoints/keys | Server `config/config.php`, client `config.json`; never shipped defaults or documentation |
 | Your copyright notice | Add your notice to README and `THIRD_PARTY_NOTICES.md`; keep `LICENSE` (GPL-3.0-only) and every existing and third-party notice |
 
-For local WSL setup, clone your own repository into your new Apache folder as SETUP
-describes. Generate the private config, choose your own database name, run the
-installer twice and run smoke checks using your actual route. Backups and updates use
+For local WSL setup, clone your own repository into
+`/var/www/html/custom-mods/your-id` as SETUP describes. Generate the private config,
+choose your own database name, run the installer twice and run smoke checks using your actual route. Backups and updates use
 that same configured database. Use that database name when restoring or removing it.
 
 The generic agent handoff is already in ExampleMod/AGENT_PLAYBOOK.md. Give the agent

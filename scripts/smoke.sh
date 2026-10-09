@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Quick endpoint checks against a running server that uses the mock LLM.
 # Usage: bash scripts/smoke.sh [base_url]
-#   base_url defaults to http://127.0.0.1:8081/ExampleServer
+#   base_url defaults to http://127.0.0.1:19000/ExampleServer
 #   Run as a user that can read the config (for example dwemer).
 #   SMOKE_STALE=1 also tests cancellation; needs llm.mock_delay_seconds >= 2.
 set -uo pipefail
 
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG="${EXAMPLE_AI_CONFIG:-$APP_DIR/config/config.php}"
-BASE="${1:-http://127.0.0.1:8081/ExampleServer}"
+BASE="${1:-http://127.0.0.1:19000/ExampleServer}"
 TOKEN="$(php -r '$c = require $argv[1]; echo $c["token"];' "$CONFIG")"
 RUN="$(date +%s)$RANDOM"
 CANCEL="{\"protocol\":1,\"session_id\":\"smoke-$RUN\",\"npc_id\":\"npc_smoke\"}"

@@ -2,7 +2,7 @@
 // Writes a private client config.json for ExampleMod: this install's base URL and token.
 // Usage (inside DwemerDistro WSL, as a user that can read config/config.php):
 //   sudo -u dwemer php scripts/pair_client.php --out /home/dwemer/example-client.json
-//       [--base-url http://127.0.0.1:8081/ExampleServer] [--session-id demo-save-1]
+//       [--base-url http://127.0.0.1:19000/ExampleServer] [--session-id demo-save-1]
 //
 // - The file is new: an existing file or symbolic link at --out is never replaced.
 // - It is created with mode 0600, outside the web root and this app folder, in a folder
@@ -10,7 +10,7 @@
 //   folders only that user or root can change), so the path cannot be swapped meanwhile.
 // - The token is written only into that file, never printed.
 // - Without --base-url the URL is inferred for installs under /var/www/html (Apache port
-//   8081 in DwemerDistro), e.g. /var/www/html/custom-mods/my_mod -> .../custom-mods/my_mod.
+//   19000 by default: CUSTOM_MODS_PORT in DwemerDistro), e.g. /var/www/html/custom-mods/my-project -> .../custom-mods/my-project.
 //   Anywhere else, pass the address the game should use with --base-url.
 // Copy the file to the PC that runs the client and save it next to example_mod.exe as
 // config.json (git-ignored), then delete the copy in WSL if you no longer need it.
@@ -22,7 +22,7 @@ if (PHP_SAPI !== 'cli') {
 require __DIR__ . '/../lib/app.php';
 
 const PAIR_WEB_ROOT = '/var/www/html';
-const PAIR_DEFAULT_ORIGIN = 'http://127.0.0.1:8081';
+const PAIR_DEFAULT_ORIGIN = 'http://127.0.0.1:19000';
 
 function pair_fail(string $message): never
 {
@@ -39,7 +39,7 @@ function pair_base_url(string $url): string
         || !in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true) || ($parts['host'] ?? '') === ''
         || isset($parts['user']) || isset($parts['pass']) || isset($parts['query']) || isset($parts['fragment'])
         || !preg_match('/^[A-Za-z0-9._~\/-]*$/D', $parts['path'] ?? '')) {
-        pair_fail('--base-url must be a plain http:// or https:// address, e.g. http://192.168.1.20:8081/ExampleServer');
+        pair_fail('--base-url must be a plain http:// or https:// address, e.g. http://127.0.0.1:19000/ExampleServer');
     }
     return rtrim($url, '/');
 }

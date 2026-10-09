@@ -26,7 +26,7 @@ and troubleshooting by request ID, start with [START_HERE.md](START_HERE.md).
 
 | Where | What |
 |---|---|
-| Windows | DwemerDistro installed and started (it provides WSL, Apache on port 8081, PostgreSQL, PHP 8.2). |
+| Windows | DwemerDistro installed and started (it provides WSL, Apache with the shared custom mods port 19000, PostgreSQL, PHP 8.2). |
 | Windows | Visual Studio 2022 with "Desktop development with C++" (MSVC, CMake). |
 | Optional | An OpenAI-compatible LLM endpoint (cloud or local). Not needed for the mock. |
 | Optional | DwemerDistro PocketTTS (audio.cpp, port 8086) and Parakeet (port 8022) or faster-whisper (port 9876) for voice. |
@@ -91,33 +91,58 @@ The installer:
 
 Running it again keeps your config and data.
 
+Then let DwemerDistro serve it on the shared custom mods port (safe to repeat; it only
+writes the distro's own Apache site and never changes official servers):
+
+```bash
+sudo ddistro_custom_mod setup-web
+```
+
+All custom PHP mods share this one loopback port, `CUSTOM_MODS_PORT` in
+`/etc/dwemerdistro_services.conf` (default `19000`, allowed `19000`-`19999`), each under
+its own path and with its own database. Official server ports such as 8081 are unchanged.
+If the port is busy, `setup-web` says so and changes nothing. To use another port, set
+`CUSTOM_MODS_PORT` as root, run `sudo ddistro_custom_mod setup-web` again, then update
+every client's `server_url` (pair again, below) to the new port. The examples here
+assume `19000`.
+
 Check it:
 
 ```bash
-curl http://127.0.0.1:8081/ExampleServer/health.php
+curl http://127.0.0.1:19000/ExampleServer/health.php
 # {"protocol":1,"ok":true,"service":"example-ai-server","schema":"007_connector_calls","expected_schema":"007_connector_calls","capabilities":["turn","cancel","result","game_event","action_target","decision","speak","listen","profiles","memory","trace"],"baseline":"baseline-1","server_version":"0.1.0"}
 bash scripts/smoke.sh
 ```
 
-> **Routing not yet verified on every install.** These instructions assume DwemerDistro's
-> Apache serves `/var/www/html` on port 8081, as it does for HerikaServer. If `health.php`
-> returns 404, check where your Apache serves port 8081 from and place the folder there.
+> **Routing not yet verified on every install.** The shared port serves only
+> `/var/www/html/ExampleServer` and `/var/www/html/custom-mods/<id>`. If `health.php`
+> returns 404 or 403, check the folder is at one of those paths and that
+> `sudo ddistro_custom_mod setup-web` succeeded.
 
 ### A separate copy with its own database
 
 Use a distinct folder and database when another ExampleServer is already installed.
-The installer creates `database.name` from your private config if it is missing. Use
-1-63 lowercase letters, digits or underscores, starting with a letter. Choose a new name
-for your own project; never point a copy at another product's database.
+The shared port serves only `/ExampleServer` and `/custom-mods/<id>`, so put the copy at
+`/var/www/html/custom-mods/<id>`. The `<id>` is 3-32 lowercase letters and digits,
+starting with a letter and joined by single hyphens (for example `my-project`, not
+`my_project`); do not use an id the launcher installs, such as `example-server`. The
+installer creates `database.name` from
+your private config if it is missing. Use 1-63 lowercase letters, digits or underscores,
+starting with a letter. Choose a new name for your own project; never point a copy at
+another product's database.
 
 ```bash
-# In a fresh checkout, before running install.sh:
+sudo install -d -o dwemer -g dwemer /var/www/html/custom-mods/my-project
+git clone https://github.com/Dwemer-Dynamics/ExampleServer.git /var/www/html/custom-mods/my-project
+cd /var/www/html/custom-mods/my-project
+# Before running install.sh:
 cp config/config.example.php config/config.php
 php -r '$p="config/config.php"; $s=file_get_contents($p); file_put_contents($p, str_replace("CHANGE_ME_TOKEN", bin2hex(random_bytes(24)), $s));'
 # Edit only database.name in config/config.php to example_ai_my_project.
 nano config/config.php
 sudo bash scripts/install.sh
-# Use your actual folder name in the HTTP URL and client server_url.
+curl http://127.0.0.1:19000/custom-mods/my-project/health.php
+# Pair from this folder too; its server_url is .../custom-mods/my-project.
 ```
 
 Keep the generated token private. The existing config is preserved on later installer
@@ -160,7 +185,7 @@ not visible at `config/config.php`. It does not check other files in the checkou
 here stops Apache from serving `.git/` or other non-PHP files. Check that yourself as
 [START_HERE.md](START_HERE.md#deployment-and-exposure) describes.
 
-You can also open `http://127.0.0.1:8081/ExampleServer/` directly in your browser; there is
+You can also open `http://127.0.0.1:19000/ExampleServer/` directly in your browser; there is
 no dashboard login. Keep it on localhost or a trusted network: anyone who can open it can
 change settings and keys. It offers settings, LLM, Voice, NPC selection and API key pages,
 a conversation test, retained history, checkpoints, diagnostics and backups. Its test
@@ -190,9 +215,10 @@ sudo -u dwemer php scripts/pair_client.php --out /home/dwemer/example-client.jso
 ```
 
 The address is inferred for installs under `/var/www/html` (here
-`http://127.0.0.1:8081/ExampleServer`; a copy in `/var/www/html/custom-mods/my_mod` gets
-`.../custom-mods/my_mod`). Anywhere else, or for another PC, add
-`--base-url http://<host>:8081/<path>`. `--session-id` is optional.
+`http://127.0.0.1:19000/ExampleServer`; a copy in `/var/www/html/custom-mods/my-project` gets
+`.../custom-mods/my-project`), on port 19000. If you changed `CUSTOM_MODS_PORT`, or the folder
+is anywhere else, add `--base-url http://127.0.0.1:<port>/<path>`. The shared port listens
+on loopback only. `--session-id` is optional.
 
 Copy that file to Windows next to `example_mod.exe` and name it `config.json` (git-ignored),
 for example from PowerShell:

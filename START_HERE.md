@@ -48,7 +48,8 @@ Each topic has one canonical document. Other pages link to it instead of repeati
 ## Before you start
 
 Requirements are in [SETUP.md, Requirements](SETUP.md#requirements). In short: DwemerDistro
-installed and started (WSL, Apache on port 8081, PostgreSQL, PHP 8.2) and Visual Studio
+installed and started (WSL, Apache with the shared custom mods port 19000, PostgreSQL,
+PHP 8.2) and Visual Studio
 2022 with "Desktop development with C++". Nothing else is needed for the first run.
 
 Everything starts in **mock mode**, so the first run needs no provider, key or service:
@@ -72,8 +73,11 @@ git-ignored. Shipped defaults live in `config/config.example.php` and `config.de
 ### Deployment and exposure
 
 The intended setup is one PC: Apache inside DwemerDistro WSL serves the server on
-`http://127.0.0.1:8081/ExampleServer`, and the client runs on the same Windows machine.
-Keep it on loopback or a trusted local network:
+`http://127.0.0.1:19000/ExampleServer`, and the client runs on the same Windows machine.
+Port 19000 is DwemerDistro's shared loopback port for all custom mods (`CUSTOM_MODS_PORT`,
+19000-19999, set up by `sudo ddistro_custom_mod setup-web`); if you change it, run
+`setup-web` again and update the client's `server_url`. Keep it on loopback or a trusted
+local network:
 
 - The dashboard has **no login** and there is **no rate limiting**. Anyone who can reach
   the dashboard can change settings and API keys, restore checkpoints and create backups.
@@ -89,11 +93,12 @@ Keep it on loopback or a trusted local network:
   `config/config.php`; it does not check `.git/`. Check your install:
 
   ```bash
-  curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8081/ExampleServer/.git/HEAD
+  curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:19000/ExampleServer/.git/HEAD
   ```
 
   `200` means anyone who can reach that port can download your committed history.
-  Never commit secrets, and do not expose port 8081 beyond a trusted network. These
+  Never commit secrets, and do not expose port 19000, or port 8081 (the official web
+  port, which also serves `/var/www/html`), beyond a trusted network. These
   templates do not provide a secure online deployment.
 
 What the server does enforce:
@@ -151,13 +156,13 @@ Each step lists what you should see. Commands marked WSL run in the DwemerDistro
 Follow [SETUP.md section 1](SETUP.md#1-install-the-server-inside-dwemerdistro). Then (WSL):
 
 ```bash
-curl http://127.0.0.1:8081/ExampleServer/health.php
+curl http://127.0.0.1:19000/ExampleServer/health.php
 bash scripts/smoke.sh
 ```
 
 Health answers `"ok":true`, `"schema":"007_connector_calls"`, `"baseline":"baseline-1"` and
 `"server_version":"0.1.0"`. The smoke script ends with `All checks passed.` On the dashboard
-(`http://127.0.0.1:8081/ExampleServer/`), **Control Panel > Diagnostics** should say Ready.
+(`http://127.0.0.1:19000/ExampleServer/`), **Control Panel > Diagnostics** should say Ready.
 
 ### 2. Build the client and pair it
 
@@ -408,7 +413,7 @@ NPC selection, embedding and memory calls are on **Control Panel > Connector cal
 an id to see the call and every call made for it (its children, such as a turn's voice).
 
 Find a request: **Control Panel > Logs**, filter **Request ID** (or open
-`http://127.0.0.1:8081/ExampleServer/ui/logs.php?request=<id>`). If you do not know the ID,
+`http://127.0.0.1:19000/ExampleServer/ui/logs.php?request=<id>`). If you do not know the ID,
 filter by session, NPC, kind, status or time (UTC), then open **Details**.
 
 | What Logs shows for the ID | Meaning | Next step |
@@ -532,8 +537,8 @@ and config, with `main` as the default branch and `dev` offered for switching. S
 
 You can run several copies at once, as long as each has its own database:
 
-- Manual installs: a different folder under `/var/www/html` and a different `database.name`
-  per copy ([SETUP.md, A separate copy with its own database](SETUP.md#a-separate-copy-with-its-own-database)).
+- Manual installs: a different `/var/www/html/custom-mods/<hyphenated-id>` folder and a
+  different `database.name` per copy ([SETUP.md, A separate copy with its own database](SETUP.md#a-separate-copy-with-its-own-database)).
 - Launcher installs: your own repository and a different `id` per published project. It
   cannot change after install.
 - Never point two copies, or another product, at the same database.
